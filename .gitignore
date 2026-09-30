@@ -1,0 +1,18 @@
+# Dependencies and build output
+node_modules/
+studio/out/
+
+# Heavy media: reference footage, analysis frames and renders stay local.
+# Written deliverables (script.md, captions.srt, chapters.txt) are committed.
+projects/*/reference/*
+!projects/*/reference/.gitkeep
+projects/*/analysis/
+projects/*/output/drafts/
+projects/*/output/final/
+*.mp4
+*.mov
+*.m4v
+*.wav
+
+.DS_Store
+Thumbs.db

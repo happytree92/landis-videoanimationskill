@@ -1,0 +1,29 @@
+{
+  "name": "landis-video-studio",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Remotion workspace for Landis IT animated how-to videos",
+  "scripts": {
+    "studio": "remotion studio",
+    "typecheck": "tsc --noEmit",
+    "draft": "node ../.claude/skills/landis-video-animation/scripts/render.mjs --quality draft",
+    "final": "node ../.claude/skills/landis-video-animation/scripts/render.mjs --quality final"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.531",
+    "@remotion/fonts": "4.0.531",
+    "@remotion/shapes": "4.0.531",
+    "@remotion/transitions": "4.0.531",
+    "qrcode": "^1.5.4",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.531"
+  },
+  "devDependencies": {
+    "@types/qrcode": "^1.5.5",
+    "@types/react": "19.1.8",
+    "ffmpeg-static": "^5.2.0",
+    "ffprobe-static": "^3.1.0",
+    "typescript": "5.8.3"
+  }
+}

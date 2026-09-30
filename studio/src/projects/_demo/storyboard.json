@@ -1,0 +1,46 @@
+{
+  "slug": "_demo",
+  "title": "Template demo",
+  "subtitle": "Component check for the Landis video studio",
+  "fps": 30,
+  "transitionSec": 0.5,
+  "burnCaptions": false,
+  "chapters": [
+    {"id": "demo", "title": "Demo"}
+  ],
+  "scenes": [
+    {
+      "id": "s01-title",
+      "component": "Title",
+      "durationSec": 5,
+      "narration": "This short demo checks every building block in the video studio.",
+      "props": {"eyebrow": "Template demo", "title": "Clean, accurate how-to animation", "subtitle": "Devices, overlays and transitions"}
+    },
+    {
+      "id": "s02-phone",
+      "component": "PhoneInstall",
+      "durationSec": 6,
+      "chapter": "demo",
+      "step": {"index": 1, "total": 2, "title": "Install the app"},
+      "action": "Tap Get and wait for the download to finish.",
+      "narration": "On your phone, tap Get. When the download finishes, the button changes to Open.",
+      "source": "Demo only - no reference footage"
+    },
+    {
+      "id": "s03-key",
+      "component": "LaptopKey",
+      "durationSec": 7,
+      "chapter": "demo",
+      "step": {"index": 2, "total": 2, "title": "Touch your security key"},
+      "action": "When the key's light blinks, touch the gold contact.",
+      "narration": "When the light on your security key blinks, touch the gold contact to confirm it's you.",
+      "source": "Demo only - no reference footage"
+    },
+    {
+      "id": "s04-end",
+      "component": "End",
+      "durationSec": 4,
+      "narration": "Questions? Our support team is here to help."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "slug": "passkeys",
+  "title": "Sign in with a passkey",
+  "subtitle": "",
+  "fps": 30,
+  "transitionSec": 0.5,
+  "burnCaptions": false,
+  "chapters": [],
+  "scenes": [
+    {
+      "id": "s01-title",
+      "component": "Title",
+      "durationSec": 4,
+      "narration": "",
+      "props": {
+        "eyebrow": "How-to",
+        "title": "Sign in with a passkey",
+        "subtitle": ""
+      }
+    },
+    {
+      "id": "s99-end",
+      "component": "End",
+      "durationSec": 5,
+      "narration": ""
+    }
+  ]
+}

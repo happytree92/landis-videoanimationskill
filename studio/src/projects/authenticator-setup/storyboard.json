@@ -1,0 +1,28 @@
+{
+  "slug": "authenticator-setup",
+  "title": "Set up Microsoft Authenticator",
+  "subtitle": "",
+  "fps": 30,
+  "transitionSec": 0.5,
+  "burnCaptions": false,
+  "chapters": [],
+  "scenes": [
+    {
+      "id": "s01-title",
+      "component": "Title",
+      "durationSec": 4,
+      "narration": "",
+      "props": {
+        "eyebrow": "How-to",
+        "title": "Set up Microsoft Authenticator",
+        "subtitle": ""
+      }
+    },
+    {
+      "id": "s99-end",
+      "component": "End",
+      "durationSec": 5,
+      "narration": ""
+    }
+  ]
+}
