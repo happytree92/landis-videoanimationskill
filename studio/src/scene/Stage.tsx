@@ -70,7 +70,7 @@ export const Stage: React.FC<{
       style={{
         background: isLight
           ? 'radial-gradient(ellipse 80% 70% at 50% 35%, #ffffff 0%, #eef0f3 55%, #dfe3e8 100%)'
-          : `radial-gradient(ellipse 75% 65% at 50% 35%, ${brand.colors.stageTop} 0%, ${brand.colors.stageBottom} 100%)`,
+          : `radial-gradient(ellipse 75% 65% at 50% 35%, ${brand.colors.stageGlow} 0%, ${brand.colors.stageTop} 35%, #1B2766 65%, ${brand.colors.stageBottom} 100%)`,
       }}
     >
       {isLight ? null : <Grain />}

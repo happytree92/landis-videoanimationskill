@@ -1,7 +1,9 @@
 # Brand: ingesting the Landis IT design guide
 
-**Status: pending.** `studio/src/brand/tokens.ts` holds PLACEHOLDER values.
-Final renders are blocked until they're replaced.
+**Status: partial.** Colors and support contacts are filled in from the video 1 production run
+(see "Extracted"). Still PLACEHOLDER in `tokens.ts`: logo files and licensed Segoe UI font
+files. The design guide PDF has not been ingested yet; check it against the values below.
+Final renders are blocked until the remaining placeholders are replaced.
 
 ## When the design guide PDF arrives
 
@@ -41,4 +43,21 @@ Final renders are blocked until they're replaced.
 
 ## Extracted
 
-_(fill in from the design guide)_
+Source: brand notes from the `it-howto-animation` video 1 run (2026-10-01). Verify against the design guide PDF.
+
+- **Colors:** Landis Blue `#273786` dominant (~80% of any frame); accents Orange `#F7931E` and Blue `#3366FF`.
+  Backdrop: radial gradient `#3a4fa8 -> #2a3b8c -> #1b2766 -> #121a45`, faint slant shapes, 4-5% grain.
+- **Fonts:** Segoe UI Semibold (headings), Segoe UI Regular (text). Phone UI: Roboto (Android) or Inter (iOS stand-in).
+  Segoe UI is not bundled; Inter is the stand-in until licensed files arrive.
+- **Motif:** the slant from the "L" of the logo. Use it for the title/end-card white logo panel
+  (parallelogram `clip-path`), an orange stripe, the step-badge tab and the note-card edge.
+- **Logo:** `Landis-Technologies-High-Res-Logo-scaled.png`, always on white (black and blue lettering doesn't read on navy). File not yet in the repo.
+- **Title card:** white slanted logo panel left; right side: series line in orange caps
+  ("Passwordless sign-in - Part N of M") and the title.
+- **End card:** same layout. "Need help?", "Contact Landis support", **717-733-0793**, **support@landisit.com**.
+- **Step badge:** lower left; orange slant tab + navy glass card; "STEP N" in orange caps, action in white semibold.
+- **Captions:** bottom center, navy pill, button names in light orange `#ffc27a` bold (`brand.colors.captionHighlight`).
+
+**Not yet implemented in the Remotion components:** the slant logo panel on title/end cards, the orange
+slant step-badge tab, and navy caption pills with highlighted button names. `TitleCard`, `EndCard`,
+`StepLabel` and `CaptionBar` currently use the generic layout. Build these once the logo file is supplied.

@@ -55,3 +55,12 @@ Defined in `projects/<slug>/brief.md`. Default if the user hasn't chosen:
 - QR codes: `DemoQrCode` only (payload: "DEMO ONLY…")
 - Device names: "Alex's iPhone", "CONTOSO-LT-0421"
 Ask whether they'd rather show a Landis-branded demo tenant.
+
+## Practical rules
+
+- **Compute tap coordinates from layout** (element top + half its height), export them as constants, then QA a frame. Never eyeball.
+- **Avoid generic names** that collide with device-shell styles (`body`, `label`, `btn`, `screen`). In React,
+  scope styles to the component; in any shared CSS, prefix screen classes.
+- Keep every app/OS screen in its own component under `projects/<slug>/screens/` and let scenes stack the views they need.
+- Never rewrite UTF-8 source files through PowerShell `Get-Content`/`Set-Content` without `-Encoding utf8`;
+  it corrupts characters like `...`, arrows and en dashes. Use editor tools for file edits.

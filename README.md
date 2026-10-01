@@ -44,6 +44,10 @@ npm run studio       # optional: live preview in the browser
 Then open the repo folder in **Claude Code** (desktop app or CLI). The skill
 loads automatically from `.claude/skills/`.
 
+### Windows notes
+`npm install` brings its own ffmpeg, so no separate install is needed. Install Git and Node with
+`winget install Git.Git` and `winget install OpenJS.NodeJS.LTS`, then reopen the terminal so PATH refreshes.
+
 ## Making a video
 
 Copy your recordings into `projects/<slug>/reference/` (or give Claude the
@@ -70,8 +74,8 @@ node .claude/skills/landis-video-animation/scripts/render.mjs --project vpn-setu
 
 ## Before the first final render
 
-- [ ] Design guide ingested into `studio/src/brand/tokens.ts` (see `references/brand.md`)
-- [ ] Logo SVGs and licensed brand fonts in `studio/public/brand/`
-- [ ] Support contact details for the end card
+- [x] Brand colors and support contacts in `studio/src/brand/tokens.ts`
+- [ ] Design guide PDF checked against those values (see `references/brand.md`)
+- [ ] Logo file (on white) and licensed Segoe UI font files in `studio/public/brand/`
 - [ ] Official Microsoft Authenticator icon (for store/app scenes)
 - [ ] Decision: photographic hands/desk plates vs hands-free product style

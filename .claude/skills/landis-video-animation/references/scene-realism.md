@@ -80,3 +80,20 @@ wording to the real key model shown in the footage.
 Light comes from upper-left in every shot: glare bands, shadows falling
 down-right, highlights on top-left edges. When adding plates, pick ones lit
 the same way, or flip them.
+
+## Videos that cover Android and iPhone
+
+- **Split** (Android left, iPhone right, each labelled under the device) only where the platforms differ:
+  store and install, provider/settings steps.
+- **Merge** (phones glide together, iPhone fades behind, labels fade) where the app behaves the same; show the
+  merged flow on one platform.
+- Do the split and merge **inside one scene** so the devices move continuously. Never crossfade between them.
+- Build each platform's screens from **that platform's footage**. Microsoft Authenticator is dark on Android and
+  light with a blue title bar on iPhone; don't reuse one for the other.
+- iOS 26 UI (from footage): Liquid Glass alerts (rounded dark panel, pill buttons, blue primary); Settings >
+  General > AutoFill & Passwords > "AutoFill from:" uses **toggles**, not checkmarks.
+- When one platform finishes early (iPhone creates the passkey right after "Turn On"), use the wait to show that platform's tip card.
+- Section scenes: group shots that share a device layout into one scene component. Hard cuts between phone
+  sections where device positions match at the boundary; ~0.6 s crossfades only into and out of cards.
+- Zoom limits: keep the phone from leaving the frame under the caption. About +0.2-0.26x over the base scale is
+  enough for sign-in pages; zoom in on web sign-in pages, where text is smallest.

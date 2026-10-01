@@ -69,6 +69,8 @@ to prove rendering works. If Remotion can't download its browser (locked-down
 network), set `REMOTION_BROWSER` to a local Chrome/Chromium headless shell.
 
 ### 1. Intake
+Read `references/intake-and-catalog.md`: ask for one recording per platform and per entry point, and write
+`reference/CATALOG.md` with clip IDs and a list of real data to replace.
 - Create the project (`new-project.mjs`) unless it exists. Copy each reference
   clip into `projects/<slug>/reference/` and run `analyze-reference.mjs` on each.
 - Read the contact sheets first, then every scene-change frame. You cannot
@@ -124,11 +126,12 @@ paths, runtime and anything still open.
 
 ## References (read when the phase calls for them)
 
-- `references/brand.md`: ingesting the Landis design guide into tokens (status: **pending design guide**)
+- `references/brand.md`: Landis brand values (colors, motif, cards) and how to ingest the design guide (status: **partial; logo, Segoe UI files and guide PDF pending**)
 - `references/motion-language.md`: curves, durations, transitions, what's banned
 - `references/scene-realism.md`: devices, camera angles, desk plates, hands, shot recipes
 - `references/screen-recreation.md`: rebuilding app/OS UI from reference frames
-- `references/accuracy-and-script.md`: procedure accuracy rules and VO writing style
+- `references/intake-and-catalog.md`: what to ask for, catalog format, ffmpeg review commands
+- `references/accuracy-and-script.md`: procedure accuracy rules, environment checks, VO writing style
 - `references/procedures/microsoft-authenticator-and-passkeys.md`: domain notes for the MFA/passkey series
 - `references/qa-checklist.md`: pre-delivery checks
 - `references/voiceover.md`: VO production and retiming

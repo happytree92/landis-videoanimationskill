@@ -10,18 +10,23 @@ export const brand = {
   company: 'Landis IT', // PLACEHOLDER: confirm legal/display name from design guide
 
   colors: {
-    // Core palette. PLACEHOLDER values: replace with exact hex from the design guide.
-    primary: '#1F6FEB', // PLACEHOLDER
-    primaryDeep: '#0B3D91', // PLACEHOLDER
-    accent: '#2BD9A6', // PLACEHOLDER: used for success states and tap indicators
+    // Core palette, from the Landis brand notes (video 1 production run).
+    // Landis Blue is dominant (~80% of any frame); orange and bright blue are accents.
+    primary: '#273786', // Landis Blue
+    primaryDeep: '#121A45', // darkest end of the backdrop gradient
+    accent: '#F7931E', // Landis Orange: step eyebrows, rules, spotlights
+    accentBlue: '#3366FF', // secondary accent
+    captionHighlight: '#FFC27A', // light orange for button names inside captions
 
     // Neutrals for stages, cards and text.
     ink: '#0E1116',
     inkSoft: '#3A4250',
     paper: '#F6F7F9',
     white: '#FFFFFF',
-    stageTop: '#1A1F29',
-    stageBottom: '#0A0C10',
+    // Backdrop: radial gradient #3a4fa8 -> #2a3b8c -> #1b2766 -> #121a45 (see Stage).
+    stageTop: '#2A3B8C',
+    stageBottom: '#121A45',
+    stageGlow: '#3A4FA8',
 
     // Semantic.
     success: '#1DB954',
@@ -30,7 +35,9 @@ export const brand = {
   },
 
   type: {
-    // PLACEHOLDER: swap for the licensed brand fonts once supplied (public/brand/fonts).
+    // Brand fonts are Segoe UI Semibold (headings) and Segoe UI Regular (text).
+    // PLACEHOLDER: Segoe UI is not bundled (licensing, and absent on Mac/Linux render
+    // machines). Inter stands in until licensed font files are placed in public/brand/fonts.
     display: 'Inter',
     body: 'Inter',
     mono: 'JetBrains Mono',
@@ -54,16 +61,18 @@ export const brand = {
   },
 
   support: {
-    // PLACEHOLDER: shown on the end card.
-    phone: '(000) 000-0000', // PLACEHOLDER
-    email: 'support@example.com', // PLACEHOLDER
-    url: 'example.com/support', // PLACEHOLDER
+    // Shown on the end card.
+    phone: '717-733-0793',
+    email: 'support@landisit.com',
+    url: '', // optional; the end card omits it when empty
   },
 
   logo: {
     // Put SVGs in studio/public/brand/. Null means "render the wordmark in text".
-    light: null as string | null, // e.g. 'brand/logo-light.svg' for dark backgrounds
-    dark: null as string | null, // e.g. 'brand/logo-dark.svg' for light backgrounds
+    // The Landis logo (black + blue lettering) does not read on navy: always place it on a
+    // white panel (see the slant motif in references/brand.md). PLACEHOLDER: file not yet in repo.
+    light: null as string | null, // PLACEHOLDER: e.g. 'brand/logo.png' (use on white panels)
+    dark: null as string | null, // PLACEHOLDER: same file
   },
 } as const;
 

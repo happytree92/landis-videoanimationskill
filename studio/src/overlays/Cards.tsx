@@ -157,11 +157,9 @@ export const EndCard: React.FC<{headline?: string}> = ({headline = 'Need a hand?
       </MaskReveal>
       <MaskReveal at={18} style={{marginTop: 28}}>
         <div style={{display: 'flex', gap: 48, fontSize: 34, opacity: 0.85}}>
-          <span>{brand.support.phone}</span>
-          <span style={{opacity: 0.4}}>|</span>
-          <span>{brand.support.email}</span>
-          <span style={{opacity: 0.4}}>|</span>
-          <span>{brand.support.url}</span>
+          {[brand.support.phone, brand.support.email, brand.support.url]
+            .filter(Boolean)
+            .flatMap((item, i) => (i ? [<span key={`s${i}`} style={{opacity: 0.4}}>|</span>, <span key={item}>{item}</span>] : [<span key={item}>{item}</span>]))}
         </div>
       </MaskReveal>
     </AbsoluteFill>
