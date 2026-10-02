@@ -1,0 +1,116 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../shared/lib.css"><link rel="stylesheet" href="../../shared/screens.css"><link rel="stylesheet" href="../../shared/laptop.css"><link rel="stylesheet" href="../../shared/securitykey.css">
+<style>
+  .tip-card { position: absolute; padding: 20px 26px 22px 40px; border-radius: 14px; background: rgba(12,18,52,.8); border: 1px solid rgba(255,255,255,.16); overflow: hidden; }
+  .tip-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 18px; background: var(--orange); clip-path: polygon(0 0, 100% 0, 40% 100%, 0 100%); }
+  .tip-card .k { font: 600 14px var(--brand-font); letter-spacing: 2.2px; text-transform: uppercase; color: var(--orange); }
+  .tip-card .h { font: 600 26px/1.25 var(--brand-font); margin-top: 6px; color: #fff; }
+  .tip-card .b { font: 400 21px/1.4 var(--brand-font); color: var(--ink2); margin-top: 6px; }
+  .tip-card .b b { color: #fff; font-weight: 600; }
+  .lap .kp { display: none; }
+</style></head>
+<body><div id="stage"></div>
+<script src="../../shared/lib.js"></script><script src="../../shared/screens.js"></script><script src="../../shared/laptop.js"></script><script src="../../shared/securitykey.js"></script>
+<script>
+// Video 3 part A (S03-S09, 55 s): add a security key in Security info.
+const T0 = 12.4;
+const stage = document.getElementById('stage');
+const bd = Backdrop(stage);
+const LAP = Laptop(stage);
+const desk = LAP.layer(browserChrome('mysignins.microsoft.com/security-info', 'My Sign-Ins', `<div class="pages abs" style="inset:0">${msiPage() + supPage()}</div>`));
+const pages = $('.pages', desk), msi = $('[data-v=l-msi]', pages);
+$('.main', msi).style.opacity = 1;
+// new row for the key (hidden until Done)
+const box = $('.box', msi);
+const newRow = el(`<div class="mrow" style="opacity:0">${keyIco('#444').replace('22', '18').replace('26', '21')}<span>Passkey (Device-bound)<div class="t2">Security key</div></span><span class="t2">Work key</span><span class="del">Delete</span></div>`);
+box.appendChild(newRow);
+$('.mrow.mhl', msi).classList.remove('mhl');
+const mods = LAP.layer(`<div class="abs" data-v="m-none" style="inset:0"></div>` + mAdd() + mType() + mReady() + mRedir() + mName() + mDone());
+mods.style.top = '86px';   // modals sit inside the browser page area
+const dlg = LAP.layer(`<div class="abs" data-v="w-none" style="inset:0"></div>` + wInsert() + wCreate() + wTouch('w-touch', wsAcct));
+const B = { add: 2.0, key: 5.4, usb: 9.4, next1: 13.0, sup: 17.0, ins: 18.2, side1: 22.0, plug: 24.2, create: 26.4, back1: 27.6,
+  pin1: 29.4, pin2: 31.4, ok: 34.0, touch: 34.6, side2: 36.6, blink: 38.0, tap: 40.0, close: 41.0, back2: 42.2, snext: 44.0,
+  name: 44.6, type: 45.6, nnext: 48.0, done: 48.4, dclick: 51.0, row: 51.6 };
+const flowPage = Flow(pages, [{ at: 0, v: 'l-msi' }, { at: B.sup, v: 'sup', tr: 'fade' }, { at: B.snext + .4, v: 'l-msi', tr: 'fade' }]);
+const flowMod = Flow(mods, [{ at: 0, v: 'm-none' }, { at: B.add + .2, v: 'm-add', tr: 'fade' }, { at: B.key + .4, v: 'm-type', tr: 'fade' },
+  { at: B.usb + .4, v: 'm-ready', tr: 'fade' }, { at: B.next1 + .4, v: 'm-redir', tr: 'fade' }, { at: B.sup, v: 'm-none', tr: 'fade' },
+  { at: B.name, v: 'm-name', tr: 'fade' }, { at: B.done, v: 'm-done', tr: 'fade' }, { at: B.dclick + .4, v: 'm-none', tr: 'fade' }]);
+const flowDlg = Flow(dlg, [{ at: 0, v: 'w-none' }, { at: B.ins, v: 'w-insert', tr: 'fade' }, { at: B.create, v: 'w-create', tr: 'fade' },
+  { at: B.touch, v: 'w-touch', tr: 'fade' }, { at: B.close, v: 'w-none', tr: 'fade' }]);
+// cursor targets (content px, from measure.mjs) — holds through each click
+const TG = { add: [372, 283], key: [690, 337], usb: [548, 339], next1: [913, 455], ok: [612, 589], snext: [841, 513], nnext: [913, 396], done: [913, 455] };
+const addEl = $('.add', msi); addEl.style.display = 'inline-block'; addEl.style.padding = '4px 8px'; addEl.style.margin = '2px 0 8px -8px'; addEl.style.borderRadius = '3px';
+const P = (t, k) => [t, TG[k][0] - 3, TG[k][1] - 2];
+const cursor = Cursor(LAP.content, [[0, 1100, 700], P(1.4, 'add'), P(2.4, 'add'), P(4.8, 'key'), P(5.8, 'key'), P(8.8, 'usb'), P(9.8, 'usb'),
+  P(12.4, 'next1'), P(13.4, 'next1'), [15, 1150, 720], [32.8, 1150, 720], P(33.4, 'ok'), P(34.4, 'ok'), [36, 1150, 720], [42.6, 1150, 720], P(43.4, 'snext'), P(44.4, 'snext'),
+  P(47.4, 'nnext'), P(48.4, 'nnext'), P(50.4, 'done'), P(51.4, 'done'), [53, 1150, 720]],
+  [B.add, B.key, B.usb, B.next1, B.ok, B.snext, B.nnext, B.dclick]);
+
+const K = KeyPanel(stage);
+const note = el(`<div class="tip-card" style="left:1262px;top:300px;width:560px"><div class="k">Already set a PIN?</div>
+  <div class="h">You'll just enter it</div><div class="b">If your key already has a PIN, Windows asks you to <b>enter</b> it instead of creating one.</div></div>`);
+stage.appendChild(note);
+const usbc = el(`<div class="tip-card" style="left:1130px;top:800px;width:640px;padding:12px 22px 14px 34px"><div class="b" style="margin:0">USB-C key? It works the same — use a USB-C port.</div></div>`);
+stage.appendChild(usbc);
+const badge = StepBadge(stage), cap = Caption(stage);
+const badges = Seq([{ at: 0, n: 'Step 1', t: 'Add a security key', until: 15.8 }, { at: 16, n: 'Step 2', t: 'Insert your key', until: 27.8 },
+  { at: 28, n: 'Step 3', t: 'Create a PIN', until: 36.4 }, { at: 36.6, n: 'Step 4', t: 'Touch the key', until: 42.8 },
+  { at: 43, n: 'Step 5', t: 'Name your key' }], (it, p) => badge.set(it.n, it.t, p));
+const caps = Seq([
+  { at: .4, h: 'Select <b>Add sign-in method</b>', until: 4.0 },
+  { at: 4.2, h: 'Choose <b>Security key</b>', until: 7.8 },
+  { at: 8.2, h: 'Select <b>USB device</b>, then <b>Next</b>', until: 15.8 },
+  { at: 16.4, h: 'Windows asks for your key', until: 21.8 },
+  { at: 23.0, h: 'Insert your <b>security key</b>', until: 27.6 },
+  { at: 28.4, h: 'Create a <b>PIN</b>, confirm it, select <b>OK</b>', until: 36.2 },
+  { at: 37.4, h: 'Touch the <b>gold contact</b> when it blinks', until: 42.6 },
+  { at: 43.2, h: 'Select <b>Next</b>, then name your key', until: 50.0 },
+  { at: 50.2, h: 'Select <b>Done</b>' }], (it, p) => cap.set(it.h, p));
+Grain(stage);
+const nm = $('[data-v=m-name]', mods), cr = $('[data-v=w-create]', dlg);
+
+window.__ready = readyAll();
+window.__seek = t => {
+  bd.drift(t + T0);
+  // camera: zoom on modal/dialog area; slide left when the key panel shows
+  const zin = seg(t, .3, 1.6);
+  const side = Math.max(seg(t, B.side1, B.side1 + 1.4) * (1 - seg(t, B.back1, B.back1 + 1.2)), seg(t, B.side2, B.side2 + 1.2) * (1 - seg(t, B.back2, B.back2 + 1.0)));
+  const fy = 340, sZ = lerp(.92, 1.3, zin);
+  const lx = 18 + 720 * .8361 - 620, ly = 18 + fy * .8361 - 430;
+  let cx = lerp(960, 960 - lx * sZ, zin), cy = lerp(470, 490 - ly * sZ, zin);
+  const s = lerp(sZ, .6, side);
+  LAP.place(lerp(cx, 520, side), lerp(cy, 480, side), s, lerp(2, 0, side));
+  // key panel
+  const kIn = side;
+  K.place(1400, 470 + (1 - kIn) * 40, .92, kIn);
+  const ins = seg(t, B.plug, B.plug + 1.0);
+  const blinkOn = t > B.blink && t < B.tap ? (.35 + .65 * (Math.sin((t - B.blink) * 7) * .5 + .5)) : 0;
+  const steady = t >= B.tap && t < B.tap + 1.4 ? 1 : 0;
+  const idle = t > B.plug + 1 ? .25 : 0;
+  K.set(ins, Math.max(blinkOn, steady, idle), lin(t, B.tap, B.tap + .45),
+    t < B.side2 ? 'Insert into a <span>USB port</span>' : (t < B.tap ? 'Light blinks — <span>touch the gold contact</span>' : 'Touched — key confirmed'));
+  rise(usbc, segIn(t, B.plug + 1.2, B.plug + 1.7) * (1 - lin(t, B.back1 - .3, B.back1)), 10);
+  flowPage(t); flowMod(t); flowDlg(t); cursor(t);
+  // typing
+  const nt = typed('Work key', t, B.type, B.type + 1.2);
+  $('.txt', nm).textContent = nt; $('.ph', nm).style.display = nt ? 'none' : '';
+  $('.cur', nm).style.opacity = t > B.name && Math.floor(t * 2) % 2 === 0 ? 1 : 0;
+  $('.n-next', nm).classList.toggle('dis', !nt);
+  $('.p1', cr).textContent = '•'.repeat(Math.round(lin(t, B.pin1, B.pin1 + 1.2) * 6));
+  $('.p2', cr).textContent = '•'.repeat(Math.round(lin(t, B.pin2, B.pin2 + 1.2) * 6));
+  $('.p1', cr).classList.toggle('idle', t > B.pin2 - .2); $('.p2', cr).classList.toggle('idle', t < B.pin2 - .2);
+  // pressed states
+  for (const [sel, a] of [['.o-key', B.key], ['.t-usb', B.usb], ['.r-next', B.next1], ['.c-ok', B.ok], ['.s-next', B.snext], ['.n-next', B.nnext], ['.d-done', B.dclick]])
+    LAP.content.querySelectorAll(sel).forEach(n => n.style.filter = (t > a - .25 && t < a + .35) ? 'brightness(.85)' : '');
+  $('.o-key', mods).style.background = t > B.key - .4 && t < B.key + .4 ? '#f3f2f1' : '';
+  $('.add', msi).style.background = t > B.add - .25 && t < B.add + .35 ? 'rgba(15,108,189,.08)' : '';
+  // redirect progress bar
+  const bar = $('[data-v=m-redir] .bar i', mods); bar.style.left = ((t * 300) % 640 - 120) + 'px';
+  // new row
+  newRow.style.opacity = seg(t, B.row, B.row + .5);
+  newRow.style.background = t > B.row ? '#fff6ea' : ''; newRow.style.boxShadow = t > B.row + .3 ? 'inset 4px 0 0 #F7931E' : '';
+  rise(note, segIn(t, 30.0, 30.6) * (1 - lin(t, 35.6, 36.0)), 12);
+  badges(t); caps(t);
+};
+window.__seek(0);
+</script></body></html>

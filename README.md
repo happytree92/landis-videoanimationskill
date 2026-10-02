@@ -1,81 +1,32 @@
 # Landis IT: animated how-to video studio
 
-A Claude Code skill plus a Remotion workspace that turns reference recordings
-of an IT procedure into a **fully animated**, customer-ready how-to video
-(16:9, 4K) with a voiceover script, captions and chapter markers.
+A Claude Code skill that turns reference recordings of an IT procedure into a fully animated, branded,
+voiced 16:9 how-to video (1080p drafts, 4K finals): realistic phone, laptop and security-key scenes, a timed
+script, captions and an ElevenLabs voiceover. The footage you record is reference only; every frame is rebuilt
+as clean animation so the steps are instruction-correct.
 
-The footage you record is only a reference. Claude rebuilds every step as
-clean animation: a realistic phone, a laptop on a desk, a FIDO2 key. The
-on-screen UI is recreated from your footage so it's instruction-correct.
+The skill lives in `.claude/skills/it-howto-animation/`:
 
-| Title | Phone step | Desk + security key |
-|---|---|---|
-| ![](docs/preview/01_s01-title.jpg) | ![](docs/preview/02_s02-phone.jpg) | ![](docs/preview/03_s03-key.jpg) |
-
-_(Template demo with placeholder brand. Colors, fonts and logo come from the Landis design guide once it's ingested.)_
-
-## How it works
-
-1. **You drop in reference footage** (and say what it's for).
-2. Claude extracts frames, writes up the procedure step by step, and checks it
-   against known Microsoft behavior. **You confirm the steps.**
-3. Claude writes the storyboard + narration script. **You approve it.**
-4. Claude builds the animation and renders a 1080p draft with review stills.
-   **You give notes until picture is locked.**
-5. Voiceover is recorded or generated from the script and synced.
-6. Claude renders the 4K final plus `script.md`, `captions.srt`,
-   `chapters.txt` and a thumbnail.
-
-The skill's rules live in `.claude/skills/landis-video-animation/`: motion
-language, realism recipes, screen-recreation rules, accuracy and script
-style, QA checklist.
-
-## Setup (once per machine)
-
-Requires Node.js 18+ and Git. Rendering works best on a machine with 8+ cores.
-
-```bash
-git clone <this repo>
-cd landis-videoanimationskill/studio
-npm install          # Remotion, fonts, and a full ffmpeg (no separate install needed)
-npm run studio       # optional: live preview in the browser
+```
+SKILL.md          workflow, rules, brand, ElevenLabs pacing, component reference
+README.md         layout and new-project quick start
+VOICE_SETUP.md    ElevenLabs and Kokoro setup
+scripts/          render.mjs build.ps1 qa.mjs measure.mjs voiceover.py retime.py apply_holds.py el_*.{py,ps1}
+assets/           core/ (shared components), brand/logo.png, examples/ (scenes and doc templates)
 ```
 
-Then open the repo folder in **Claude Code** (desktop app or CLI). The skill
-loads automatically from `.claude/skills/`.
+## Using it
 
-### Windows notes
-`npm install` brings its own ffmpeg, so no separate install is needed. Install Git and Node with
-`winget install Git.Git` and `winget install OpenJS.NodeJS.LTS`, then reopen the terminal so PATH refreshes.
+Open this folder in Claude Code (desktop app or CLI); the skill loads from `.claude/skills/`. Then, for example:
 
-## Making a video
+> Here are the reference recordings for the VPN setup video.
 
-Copy your recordings into `projects/<slug>/reference/` (or give Claude the
-file paths) and say, for example:
+Claude follows `SKILL.md`: intake and catalog, accuracy check, storyboard and script, style frames, 1080p
+draft, voiceover, 4K final, with your approval at each gate. Set up a new video project as described in
+`.claude/skills/it-howto-animation/README.md` (Windows/PowerShell first; see the notes there and in `SKILL.md`).
 
-> Here's the reference footage for the Authenticator setup video.
+## Other folders
 
-Useful commands (Claude runs these for you):
-
-```bash
-node .claude/skills/landis-video-animation/scripts/new-project.mjs --slug vpn-setup --title "Connect to the VPN"
-node .claude/skills/landis-video-animation/scripts/analyze-reference.mjs --project vpn-setup --input clip.mov
-node .claude/skills/landis-video-animation/scripts/render.mjs --project vpn-setup --quality draft
-node .claude/skills/landis-video-animation/scripts/render.mjs --project vpn-setup --quality final
-```
-
-## Current projects
-
-| Slug | Video | Status |
-|---|---|---|
-| `authenticator-setup` | Install and set up Microsoft Authenticator | Brief drafted, waiting on footage |
-| `passkeys` | Passkey in Authenticator, FIDO2 key, QR and key sign-in | Brief drafted, waiting on footage |
-| `_demo` | Component demo / pattern library | Not for delivery |
-
-## Before the first final render
-
-- [x] Brand colors and support contacts in `studio/src/brand/tokens.ts`
-- [ ] Design guide PDF checked against those values (see `references/brand.md`)
-- [ ] Logo file (on white) and licensed Segoe UI font files in `studio/public/brand/`
-- [ ] Official Microsoft Authenticator icon (for store/app scenes)
-- [ ] Decision: photographic hands/desk plates vs hands-free product style
+- `studio/`: an earlier, experimental Remotion pipeline. Not used by the skill; kept for reference (`studio/README.md`).
+- `projects/`: briefs written for that pipeline.
+- `brand/source/`: put the Landis design guide PDF here when available.

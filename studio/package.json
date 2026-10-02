@@ -6,8 +6,8 @@
   "scripts": {
     "studio": "remotion studio",
     "typecheck": "tsc --noEmit",
-    "draft": "node ../.claude/skills/landis-video-animation/scripts/render.mjs --quality draft",
-    "final": "node ../.claude/skills/landis-video-animation/scripts/render.mjs --quality final"
+    "draft": "node scripts/render.mjs --quality draft",
+    "final": "node scripts/render.mjs --quality final"
   },
   "dependencies": {
     "@remotion/cli": "4.0.531",

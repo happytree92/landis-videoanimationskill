@@ -1,0 +1,127 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../shared/lib.css"><link rel="stylesheet" href="../../shared/screens.css"><link rel="stylesheet" href="../../shared/laptop.css">
+<style>
+  .ispin { animation: none; }
+  .tip-card { position: absolute; padding: 20px 26px 22px 40px; border-radius: 14px; background: rgba(12,18,52,.8); border: 1px solid rgba(255,255,255,.16); overflow: hidden; }
+  .tip-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 18px; background: var(--orange); clip-path: polygon(0 0, 100% 0, 40% 100%, 0 100%); }
+  .tip-card .k { font: 600 14px var(--brand-font); letter-spacing: 2.2px; text-transform: uppercase; color: var(--orange); }
+  .tip-card .h { font: 600 26px/1.25 var(--brand-font); margin-top: 6px; color: #fff; }
+  .tip-card .b { font: 400 21px/1.4 var(--brand-font); color: var(--ink2); margin-top: 6px; }
+  .tip-card .b b { color: #fff; font-weight: 600; }
+</style></head>
+<body><div id="stage"></div>
+<script src="../../shared/lib.js"></script><script src="../../shared/screens.js"></script><script src="../../shared/laptop.js"></script>
+<script>
+// Video 2 main section (S03-S10, 58 s): laptop sign-in -> QR -> split phones scan + approve -> laptop signed in.
+const T0 = 12.4;
+const stage = document.getElementById('stage');
+const bd = Backdrop(stage);
+const LAP = Laptop(stage);
+const desk = LAP.layer(browserChrome('mysignins.microsoft.com/security-info', 'My Sign-Ins', `<div class="pages abs" style="inset:0">${lapSignIn() + lapPassword() + lapOther() + lapFido() + msiPage()}</div>`));
+const pages = $('.pages', desk);
+const dlg = LAP.layer(`<div class="abs" data-v="w-none" style="inset:0"></div>` + wsChoose() + wsQR() + wsConnected());
+const flowPage = Flow(pages, [{ at: 0, v: 'l-email' }, { at: 5.4, v: 'l-pw', tr: 'fade' }, { at: 10.0, v: 'l-other', tr: 'fade' },
+  { at: 13.4, v: 'l-fido', tr: 'fade' }, { at: 44.6, v: 'l-msi', tr: 'fade' }]);
+const flowDlg = Flow(dlg, [{ at: 0, v: 'w-none' }, { at: 15.6, v: 'w-choose', tr: 'fade' }, { at: 21.4, v: 'w-qr', tr: 'fade' },
+  { at: 38.4, v: 'w-conn', tr: 'fade' }, { at: 44.4, v: 'w-none', tr: 'fade' }]);
+// targets measured with measure.mjs (content px); cursor tip sits ~(3,2) px inside its box, and it HOLDS through each click.
+const cursor = Cursor(LAP.content, [[0, 1100, 640], [1.1, 697, 326], [1.6, 697, 326], [4.3, 838, 420], [5.4, 838, 420],
+  [8.8, 602, 429], [9.9, 602, 429], [12.2, 637, 358], [13.4, 637, 358], [20.2, 647, 311], [21.4, 647, 311], [22.6, 1180, 760]],
+  [1.3, 5.0, 9.6, 13.0, 21.0]);
+
+// phones: base layer (home / scanner) + overlay layer (system sheets)
+const A = Phone(stage, 'android', { label: 'Android' });
+const I = Phone(stage, 'ios', { label: 'iPhone' });
+const fixMark = h => h.replaceAll('../assets/authenticator-mark.png', '../../shared/marks/authenticator-mark.png');
+const LA = A.layer(fixMark(authHome() + aScan()));
+const OA = A.layer(fixMark(`<div class="abs dimA" style="inset:0;background:#000;opacity:0"></div><div class="v" data-v="none"></div>` + aConnecting() + aCred() + aLock() + aOk()));
+const LI = I.layer(fixMark(iaHome('i-home', false) + iScan()));
+const OI = I.layer(fixMark(`<div class="abs dimI" style="inset:0;background:#000;opacity:0"></div><div class="v" data-v="none"></div>` + iConnect() + iConnecting() + iSignIn()));
+// ONE shared beat sheet so both phones move through each stage together:
+// QR button -> scan -> connect -> approve (Sign in / Use Passkey) -> verify (fingerprint / Face ID) -> done.
+const B = { hl: 28.0, tapQR: 30.4, scan: 30.8, det: 33.8, conn: 34.8, iCont: 36.4, iCing: 36.8, appr: 38.4, tapAppr: 40.4,
+  verify: 40.8, fpTap: 41.8, ok: 42.4, done: 44.0, home: 44.4, out: 44.8 };
+const fA = Flow(LA, [{ at: 0, v: 'ahome' }, { at: B.scan, v: 'a-scan', tr: 'fade' }, { at: B.home, v: 'ahome', tr: 'fade' }]);
+const fI = Flow(LI, [{ at: 0, v: 'i-home' }, { at: B.scan, v: 'i-scan', tr: 'fade' }, { at: B.home, v: 'i-home', tr: 'fade' }]);
+const gA = Flow(OA, [{ at: 0, v: 'none' }, { at: B.conn, v: 'a-cing', tr: 'fade' }, { at: B.appr, v: 'a-cred', tr: 'fade' },
+  { at: B.verify, v: 'a-lock', tr: 'fade' }, { at: B.ok, v: 'a-ok', tr: 'fade' }, { at: B.done, v: 'none', tr: 'fade' }]);
+const gI = Flow(OI, [{ at: 0, v: 'none' }, { at: B.conn, v: 'i-conn', tr: 'fade' }, { at: B.iCing, v: 'i-cing', tr: 'fade' },
+  { at: B.appr, v: 'i-sign', tr: 'fade' }, { at: B.done, v: 'none', tr: 'fade' }]);
+// targets from measure.mjs
+const tA = Taps(OA, [[B.tapQR, 322, 662], [B.tapAppr, 297, 711], [B.fpTap, 185, 625]]);
+const tI = Taps(OI, [[B.tapQR, 320, 673], [B.iCont, 183, 757], [B.tapAppr, 183, 705]]);
+// QR-button emphasis: pulsing orange ring around the button in BOTH apps + a callout
+const hlA = Highlight(OA), hlI = Highlight(OI);
+const qrCall = el(`<div class="tip-card" style="left:96px;top:70px;width:640px"><div class="k">Both phones</div>
+  <div class="h">Tap the <span style="color:#ffc27a">QR button</span> in Authenticator</div>
+  <div class="b">It opens Authenticator's built-in camera on <b>Android</b> and <b>iPhone</b>. Look for the round QR icon at the bottom right.</div></div>`);
+stage.appendChild(qrCall);
+
+const tip = el(`<div class="tip-card" style="left:96px;top:64px;width:600px"><div class="k">Tip</div><div class="h">Stuck on “Connecting”?</div>
+  <div class="b">Turn on <b>Bluetooth</b> on both devices and check that both are online. Desktop PC without Bluetooth? Add a <b>USB Bluetooth adapter</b>.</div></div>`); stage.appendChild(tip);
+const badge = StepBadge(stage), cap = Caption(stage);
+const badges = Seq([{ at: 0, n: 'Step 1', t: 'Start signing in', until: 17.8 }, { at: 18, n: 'Step 2', t: 'Show the QR code', until: 25.8 },
+  { at: 26, n: 'Step 3', t: 'Scan with Authenticator', until: B.conn - .2 }, { at: B.conn, n: 'Step 4', t: 'Approve on your phone', until: B.out - .2 },
+  { at: B.out, n: 'Step 5', t: "You're signed in" }], (it, p) => badge.set(it.n, it.t, p));
+const caps = Seq([
+  { at: .4, h: 'Enter your <b>work email</b>, then <b>Next</b>', until: 7.8 },
+  { at: 8.2, h: 'Select <b>Other ways to sign in</b>', until: 12.4 },
+  { at: 12.6, h: 'Choose <b>Face, fingerprint, PIN or security key</b>', until: 17.8 },
+  { at: 18.2, h: 'Select <b>iPhone, iPad, or Android device</b>', until: 25.6 },
+  { at: 27.4, h: 'Open Authenticator, tap the <b>QR button</b>', until: B.scan },
+  { at: B.scan + .2, h: 'Point the camera at the <b>QR code</b>', until: B.conn - .2 },
+  { at: B.conn + .2, h: 'iPhone: tap <b>Continue</b> to connect', until: B.appr - .2 },
+  { at: B.appr + .2, h: 'Tap <b>Sign in</b> or <b>Use Passkey</b>', until: B.verify - .1 },
+  { at: B.verify + .1, h: 'Confirm with <b>fingerprint</b> or <b>Face ID</b>', until: B.out },
+  { at: B.out + 1.2, h: 'You\'re signed in — no password' }], (it, p) => cap.set(it.h, p));
+Grain(stage);
+const emV = $('[data-v=l-email]', pages), msi = $('[data-v=l-msi]', pages);
+const brA = $('svg', $('[data-v=a-scan]', LA)), brI = $('svg', $('[data-v=i-scan]', LI));
+
+window.__ready = readyAll();
+window.__seek = t => {
+  bd.drift(t + T0);
+  // ---- camera: laptop ----
+  const zin = seg(t, .4, 1.8) * (1 - seg(t, 25.2, 26.4));             // zoom on sign-in card / dialog
+  const side = seg(t, 25.6, 27.4) * (1 - seg(t, B.out, B.out + 1.8));  // laptop moves left for the phones
+  const fx = 720, fy = t < 15 ? 330 : 300;                              // content focus point
+  const sZoom = lerp(.92, 1.32, zin);
+  const lx = 18 + fx * .8361 - 620, ly = 18 + fy * .8361 - 430;
+  let cx = lerp(960, 960 - lx * sZoom, zin), cy = lerp(470, 500 - ly * sZoom, zin);
+  const s = lerp(sZoom, .6, side);
+  cx = lerp(cx, 560, side); cy = lerp(cy, 505, side);
+  LAP.place(cx, cy, s, lerp(2, 0, side));
+  // ---- phones rise in / leave ----
+  const ph = segIn(t, 26.2, 27.8) * (1 - seg(t, B.out, B.out + 1.4));
+  const push = seg(t, 27.6, 28.6) * (1 - seg(t, B.scan, B.scan + 1)) * .05;   // push in on both QR buttons, together
+  A.place(1232, 488 + (1 - ph) * 60 - push * 300, .82 + push, -4, 0, ph);
+  I.place(1604, 488 + (1 - ph) * 60 - push * 300, .82 + push, -6, 0, ph);
+  const hp = seg(t, B.hl, B.hl + .4) * (1 - seg(t, B.tapQR + .2, B.tapQR + .5)), pulse = 1 + Math.sin((t - B.hl) * 6) * .06 * hp;
+  hlA.set(322 - 36, 662 - 36, 72, 72, hp); hlI.set(320 - 36, 673 - 36, 72, 72, hp);
+  for (const h of [hlA, hlI]) { const n = (h === hlA ? OA : OI).querySelector('.hl'); n.style.borderRadius = '50%'; n.style.transform = `scale(${pulse})`; }
+  rise(qrCall, segIn(t, B.hl, B.hl + .5) * (1 - lin(t, B.scan + .4, B.scan + .8)), 12);
+  flowPage(t); flowDlg(t); cursor(t);
+  $('.txt', emV).textContent = typed('alex.morgan@contoso.com', t, 1.6, 3.8);
+  $('.ph', emV).style.display = t > 1.6 ? 'none' : '';
+  $('.cur', emV).style.opacity = t > 1.3 && t < 4.6 && Math.floor(t * 2) % 2 === 0 ? 1 : 0;
+  for (const [sel, a] of [['.l-next', 5.0], ['.l-other', 9.6], ['.l-fido', 13.0], ['.w-phone', 21.0]])
+    LAP.content.querySelectorAll(sel).forEach(n => n.style.background = (t > a - .3 && t < a + .4) ? (n.classList.contains('pri') ? '#005a9e' : 'rgba(127,127,140,.18)') : '');
+  // ---- phones ----
+  fA(t); fI(t); gA(t); gI(t); tA(t); tI(t);
+  const dim = (t > B.conn && t < B.done + .4) ? .45 * seg(t, B.conn, B.conn + .4) * (1 - seg(t, B.done, B.done + .4)) : 0;
+  $('.dimA', OA).style.opacity = dim; $('.dimI', OI).style.opacity = dim;
+  const det = t > B.det && t < B.conn; brA.style.filter = brI.style.filter = det ? 'drop-shadow(0 0 6px #7fb2ff)' : '';
+  OI.querySelectorAll('.ispin').forEach(n => n.style.transform = `rotate(${t * 360}deg)`);
+  OA.querySelectorAll('.rg').forEach(n => n.style.transform = `rotate(${t * 360}deg)`);
+  // iPhone Face ID (verify) -> check at the same moment Android shows its check
+  $('.fid', OI).style.opacity = seg(t, B.verify, B.verify + .3) * (1 - seg(t, B.ok - .1, B.ok + .1));
+  $('.fok', OI).style.opacity = seg(t, B.ok - .1, B.ok + .2);
+  // ---- laptop finale ----
+  const sp = $('.spin', msi); sp.style.display = t > B.out - .2 && t < B.out + 1.2 ? '' : 'none'; sp.style.transform = `rotate(${t * 400}deg)`;
+  $('.main', msi).style.opacity = seg(t, B.out + 1.0, B.out + 1.5);
+  $('.mrow.mhl', msi).style.boxShadow = t > B.out + 2.2 ? `inset 4px 0 0 #F7931E` : 'none';
+  rise(tip, segIn(t, B.iCing, B.iCing + .6) * (1 - lin(t, B.verify, B.verify + .4)), 12);
+  badges(t); caps(t);
+};
+window.__seek(0);
+</script></body></html>

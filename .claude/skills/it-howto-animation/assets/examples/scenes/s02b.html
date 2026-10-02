@@ -1,0 +1,47 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../shared/lib.css"><link rel="stylesheet" href="../../shared/screens.css">
+<style>
+  .fork { position: absolute; left: 110px; top: 300px; width: 640px; }
+  .fork .k { font: 600 20px var(--brand-font); letter-spacing: 3px; text-transform: uppercase; color: var(--orange); }
+  .fork .h { font: 600 54px/1.15 var(--brand-font); margin-top: 14px; }
+  .fork .h b { color: #ffc27a; font-weight: 600; }
+  .fork .s { display: flex; gap: 16px; align-items: baseline; font: 400 30px/1.35 var(--brand-font); color: var(--ink2); margin-top: 22px; }
+  .fork .s i { font-style: normal; font: 600 22px var(--brand-font); color: #fff; width: 40px; height: 40px; border-radius: 50%; background: rgba(51,102,255,.35); display: inline-grid; place-items: center; flex: none; transform: translateY(-4px); }
+  .fork .s b { color: #fff; font-weight: 600; }
+</style></head>
+<body><div id="stage"></div>
+<script src="../../shared/lib.js"></script><script src="../../shared/screens.js"></script>
+<script>
+// S02b (14 s): fork for people who already have Authenticator — account -> Create a passkey -> Sign in, then join at Step 4.
+const T0 = 11.8;
+const stage = document.getElementById('stage');
+const bd = Backdrop(stage);
+const A = Phone(stage, 'android', { label: 'Android' });
+const I = Phone(stage, 'ios', { label: 'iPhone' });
+const LA = A.layer(authHome() + auLetsCreate());
+const LI = I.layer(iaHome('i-home', true) + iaDetail() + iaLetsCreate());
+const flowA = Flow(LA, [{ at: 0, v: 'ahome' }, { at: 2.6, v: 'a-lets', tr: 'push' }]);
+const flowI = Flow(LI, [{ at: 0, v: 'i-home' }, { at: 2.9, v: 'i-detail', tr: 'push' }, { at: 5.4, v: 'i-lets', tr: 'push' }]);
+const tapA = Taps(LA, [[2.2, 185, 128], [8.2, 185, 718]]);
+const tapI = Taps(LI, [[2.5, 183, 196], [5.0, 183, 346], [8.4, 183, 693]]);
+const hlI = Highlight(LI);
+stage.appendChild(el(`<div class="fork"><div class="k">Already have Authenticator?</div>
+  <div class="h">Add a passkey to your <b>existing account</b></div>
+  <div class="s"><i>1</i><span>Tap your account</span></div>
+  <div class="s"><i>2</i><span>Tap <b>Create a passkey</b>, then <b>Sign in</b></span></div>
+  <div class="s"><i>3</i><span>Follow along from <b>Step 4</b></span></div></div>`));
+Grain(stage);
+const parts = [...document.querySelectorAll('.fork > *')];
+window.__ready = readyAll();
+window.__seek = t => {
+  bd.drift(t + T0);
+  const inP = segIn(t, .2, 1.2);
+  A.place(1090, 470 + (1 - inP) * 30, .84, 5, 0, inP);
+  I.place(1530, 470 + (1 - inP) * 30, .84, -5, 0, inP);
+  flowA(t); flowI(t); tapA(t); tapI(t);
+  hlI.set(4, 326, 358, 40, seg(t, 4.2, 4.6) * (1 - seg(t, 5.3, 5.5)));
+  // text: kicker + heading first, then each step as the phones reach it
+  const at = [.3, .5, 2.0, 4.6, 9.2];
+  parts.forEach((p, i) => rise(p, segIn(t, at[i], at[i] + .5), 16));
+};
+window.__seek(0);
+</script></body></html>

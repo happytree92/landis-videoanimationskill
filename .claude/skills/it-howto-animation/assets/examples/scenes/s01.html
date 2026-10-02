@@ -1,0 +1,35 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../shared/lib.css">
+<style>
+  .panel { position: absolute; top: 0; bottom: 0; left: -120px; width: 900px; background: #fff;
+    clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%); box-shadow: 0 0 80px rgba(0,0,0,.4); }
+  .panel img { position: absolute; left: 230px; top: 50%; width: 500px; transform: translateY(-50%); }
+  .stripe { position: absolute; top: 0; bottom: 0; left: 700px; width: 80px; background: var(--orange);
+    clip-path: polygon(70% 0, 100% 0, 30% 100%, 0 100%); }
+  .copy { position: absolute; left: 930px; top: 50%; transform: translateY(-50%); width: 900px; }
+  .series { font: 600 24px var(--brand-font); letter-spacing: 3.5px; text-transform: uppercase; color: var(--orange); }
+  .title { font: 600 76px/1.08 var(--brand-font); margin-top: 22px; color: #fff; }
+  .sub { font: 400 30px var(--brand-font); color: var(--ink2); margin-top: 26px; }
+</style></head><body><div id="stage"></div>
+<script src="../../shared/lib.js"></script>
+<script>
+const stage = document.getElementById('stage');
+const bd = Backdrop(stage);
+stage.appendChild(el(`<div class="stripe"></div>`));
+stage.appendChild(el(`<div class="panel"><img src="../../shared/brand/logo.png"></div>`));
+stage.appendChild(el(`<div class="copy"><div class="series">Passwordless sign-in · Part 1 of 3</div>
+  <div class="title">Set up a passkey in<br>Microsoft Authenticator</div>
+  <div class="sub">Android and iPhone</div></div>`));
+Grain(stage);
+const panel = $('.panel'), stripe = $('.stripe'), copy = $('.copy');
+window.__ready = readyAll();
+window.__seek = t => {
+  bd.drift(t);
+  const p = segIn(t, 0, 1.1);
+  panel.style.transform = `translateX(${(1 - p) * -980}px)`;
+  stripe.style.transform = `translateX(${(1 - segIn(t, .15, 1.3)) * -1040}px)`;
+  const kids = copy.children;
+  [...kids].forEach((k, i) => rise(k, segIn(t, .7 + i * .18, 1.3 + i * .18), 16));
+  copy.style.transform = `translateY(-50%) scale(${1 + seg(t, 1, 5) * .015})`;
+};
+window.__seek(0);
+</script></body></html>

@@ -1,0 +1,55 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../shared/lib.css"><link rel="stylesheet" href="../../shared/screens.css"></head>
+<body><div id="stage"></div>
+<script src="../../shared/lib.js"></script><script src="../../shared/screens.js"></script>
+<script>
+// Section E = S13-S16 (30 s). Split: Android sets the provider in Settings; iPhone uses the in-app prompt
+// (I1 0:20-0:28: Continue -> "Turn on AutoFill from Authenticator?" -> Turn On -> Creating passkey). Merge for "Passkey created".
+const T0 = 111.2;
+const stage = document.getElementById('stage');
+const bd = Backdrop(stage);
+const I = Phone(stage, 'ios', { label: 'iPhone' });
+const A = Phone(stage, 'android', { label: 'Android' });
+const LA = A.layer(allowPasskeys('android') + samsungPw() + samsungPref() + canUse('android') + patternLock() + creating('android') + created());
+const LI = I.layer(iaTurnOnAF() + iaAlert() + iaCreating() + iaHome('i-done', false));
+const flowA = Flow(LA, [{ at: 0, v: 'allow' }, { at: .3, v: 's-pw', tr: 'fade' }, { at: 3.8, v: 's-pref', tr: 'push' },
+  { at: 7.4, v: 'canuse', tr: 'fade' }, { at: 11.4, v: 'lock', tr: 'fade' }, { at: 14.8, v: 'creating', tr: 'fade' }, { at: 19.6, v: 'created', tr: 'fade' }]);
+const flowI = Flow(LI, [{ at: 0, v: 'i-af1' }, { at: 2.6, v: 'i-alert', tr: 'alert' }, { at: 5.6, v: 'i-creating', tr: 'fade' }, { at: 9.0, v: 'i-done', tr: 'fade' }]);
+const tapA = Taps(LA, [[3.4, 185, 370], [6.4, 60, 215], [11.0, 185, 718], [26.0, 185, 718]]);
+const tapI = Taps(LI, [[2.2, 183, 693], [5.0, 251, 413]]);
+const tip = el(`<div class="tip-card" style="left:1452px;top:300px;width:376px"><div class="k">iPhone tip</div>
+  <div class="h">Tapped Not Now?</div><div class="b">Open <b>Settings › General › AutoFill &amp; Passwords</b> and turn on <b>Authenticator</b>.</div></div>`);
+stage.appendChild(tip);
+const badge = StepBadge(stage), cap = Caption(stage);
+const badges = Seq([{ at: 0, n: 'Step 4', t: 'Turn on passkeys', until: 10.8 }, { at: 11, n: 'Step 5', t: 'Create your passkey' }], (it, p) => badge.set(it.n, it.t, p));
+const caps = Seq([
+  { at: 1.2, h: 'Android: choose <b>Authenticator</b> · iPhone: <b>Turn On</b>', until: 10.6 },
+  { at: 10.8, h: 'Tap <b>Continue</b>, then unlock', until: 17.8 },
+  { at: 18.6, h: 'Your passkey is created', until: 22.6 },
+  { at: 22.8, h: 'Tap <b>Done</b>' }], (it, p) => cap.set(it.h, p));
+Grain(stage);
+const pref = $('[data-v=s-pref]', LA), pwv = $('[data-v=s-pw]', LA);
+const rgs = [...document.querySelectorAll('.rg')];
+window.__ready = readyAll();
+window.__seek = t => {
+  bd.drift(t + T0);
+  const sp = seg(t, 0, 1.4), mg = seg(t, 18, 19.6);   // split in, merge out
+  const k = sp * (1 - mg);
+  A.place(lerp(960, 700, k), 462, .92, 6 * k, 0);
+  I.place(lerp(1010, 1220, sp) * (1 - mg) + 1010 * mg, 462, .92 * lerp(.9, 1, k), -6 * k, 0, k);
+  A.root.querySelector('.label').style.opacity = k;
+  flowA(t); flowI(t); tapA(t); tapI(t);
+  const on = t >= 6.5;
+  $('.r-auth i', pref).classList.toggle('on', on); $('.r-none', pref).classList.toggle('on', !on);
+  $('.nv', pwv).textContent = on ? 'Microsoft Authenticator' : 'None';
+  for (const [sel, a, L] of [['.c-pref', 3.4, LA], ['.r-auth', 6.4, LA]])
+    L.querySelectorAll(sel).forEach(n => n.style.background = (t > a && t < a + .45) ? 'rgba(127,127,140,.2)' : '');
+  LI.querySelector('.b-turnon').style.filter = t > 5.0 && t < 5.5 ? 'brightness(1.25)' : '';
+  LA.querySelector('.pat').style.strokeDashoffset = 1000 - 700 * seg(t, 12.0, 13.8);
+  rgs.forEach(r => r.style.transform = `rotate(${t * 360}deg)`);
+  LA.querySelector('.tick').style.strokeDashoffset = 80 * (1 - seg(t, 20.0, 20.8));
+  // tip card while the iPhone waits for Android (9.4 -> 17.4)
+  const tp = segIn(t, 9.4, 10.0) * (1 - lin(t, 17.0, 17.4)); rise(tip, tp, 14);
+  badges(t); caps(t);
+};
+window.__seek(0);
+</script></body></html>

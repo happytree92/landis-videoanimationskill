@@ -1,0 +1,236 @@
+/* screens.css — rebuilt app/OS screens for Video 1. Screen boxes: Android 370×810, iPhone 366×806. */
+.v { position: absolute; inset: 0; overflow: hidden; }
+
+/* ---- Android home / generic ---- */
+.home { background: radial-gradient(420px 520px at 30% 20%, #3c5bd6 0%, #23308a 45%, #0e133a 100%); }
+.home .grid { position: absolute; left: 30px; right: 30px; top: 470px; display: grid; grid-template-columns: repeat(4, 1fr); row-gap: 22px; }
+.home .ap { display: flex; flex-direction: column; align-items: center; gap: 7px; font: 500 11.5px var(--android-font); color: #fff; }
+.home .ap i { width: 58px; height: 58px; border-radius: 18px; background: rgba(255,255,255,.16); display: block; }
+.home.ios .ap i { border-radius: 14px; }
+.home.ios .ap { font: 500 11px var(--ios-font); }
+.home .store i { background: #fff; display: grid; place-items: center; }
+.home .clock { position: absolute; top: 110px; left: 0; right: 0; text-align: center; font: 300 64px var(--android-font); color: #fff; }
+.home.ios .clock { font: 600 72px var(--ios-font); top: 96px; }
+.home .date { position: absolute; top: 196px; left: 0; right: 0; text-align: center; font: 400 16px var(--android-font); color: rgba(255,255,255,.85); }
+.home.ios .date { font: 500 17px var(--ios-font); top: 82px; }
+.home .dock { position: absolute; left: 14px; right: 14px; bottom: 26px; height: 86px; border-radius: 30px; background: rgba(255,255,255,.14);
+  display: flex; justify-content: space-around; align-items: center; }
+.home .dock i { width: 56px; height: 56px; border-radius: 16px; background: rgba(255,255,255,.18); display: block; }
+.placeholder-tag { position: absolute; top: 2px; right: 2px; font: 700 7px var(--android-font); color: #999; }
+
+/* ---- Play Store (dark) ---- */
+.ps { background: #131314; color: #e3e3e3; font-family: var(--android-font); }
+.ps .bar { position: absolute; top: 46px; left: 0; right: 0; height: 56px; display: flex; align-items: center; padding: 0 16px; gap: 18px; }
+.ps .q { flex: 1; font-size: 18px; color: #e3e3e3; white-space: nowrap; overflow: hidden; }
+.ps .q .ph { color: #8e918f; }
+.ps .cur { display: inline-block; width: 2px; height: 20px; background: #a8c7fa; vertical-align: -4px; margin-left: 1px; }
+.ps .res { position: absolute; top: 118px; left: 20px; right: 20px; }
+.ps .top { display: flex; gap: 16px; align-items: center; border-radius: 12px; }
+.ps .icon { width: 76px; height: 76px; border-radius: 18px; background: #fff; display: grid; place-items: center; flex: none; position: relative; }
+.ps .icon img { width: 52px; }
+.ps .name { font-size: 20px; font-weight: 500; }
+.ps .pub { font-size: 14px; color: #c4c7c5; margin-top: 4px; }
+.ps .btnrow { display: flex; gap: 10px; margin-top: 20px; }
+.ps .install { flex: 1; height: 44px; border-radius: 22px; background: #a8c7fa; color: #062e6f; font-weight: 500; font-size: 16px; display: grid; place-items: center; }
+.ps .outline { flex: 1; height: 44px; border-radius: 22px; border: 1px solid #8e918f; color: #a8c7fa; font-weight: 500; font-size: 16px; display: grid; place-items: center; }
+.ps .prog { font-size: 13px; color: #c4c7c5; margin-top: 4px; }
+.ps .ring { position: absolute; inset: -6px; border-radius: 22px; }
+.ps .shots { display: flex; gap: 10px; margin-top: 22px; }
+.ps .shot { width: 104px; height: 200px; border-radius: 12px; background: linear-gradient(180deg, #23252a, #1b1c20); position: relative; overflow: hidden; }
+.ps .shot::before { content: ""; position: absolute; left: 14px; right: 14px; top: 26px; height: 10px; border-radius: 5px; background: #33363c; box-shadow: 0 22px 0 #2b2e33, 0 44px 0 #2b2e33, 0 66px 0 #2b2e33; }
+.ps .sec { margin-top: 26px; font-size: 18px; font-weight: 500; }
+.ps .line { height: 12px; border-radius: 6px; background: #26282c; margin-top: 14px; }
+
+/* ---- App Store (light) ---- */
+.as { background: #fff; color: #000; font-family: var(--ios-font); }
+.as .bar { position: absolute; top: 62px; left: 16px; right: 16px; display: flex; align-items: center; gap: 12px; }
+.as .field { flex: 1; height: 40px; border-radius: 12px; background: #eeeef0; display: flex; align-items: center; gap: 8px; padding: 0 10px; font-size: 17px; color: #000; white-space: nowrap; overflow: hidden; }
+.as .field .ph { color: #8a8a8e; }
+.as .cur { display: inline-block; width: 2px; height: 21px; background: #007aff; vertical-align: -4px; margin-left: 1px; }
+.as .cancel { color: #007aff; font-size: 17px; }
+.as .res { position: absolute; top: 124px; left: 16px; right: 16px; }
+.as .row { display: flex; align-items: center; gap: 12px; border-radius: 12px; }
+.as .icon { width: 64px; height: 64px; border-radius: 15px; border: 1px solid #e5e5ea; background: #fff; display: grid; place-items: center; flex: none; }
+.as .icon img { width: 44px; }
+.as .name { font-size: 16px; font-weight: 600; }
+.as .pub { font-size: 13px; color: #8a8a8e; margin-top: 3px; }
+.as .get { margin-left: auto; min-width: 74px; height: 30px; border-radius: 15px; background: #eeeef0; color: #007aff; font-weight: 700; font-size: 15px; display: grid; place-items: center; flex: none; }
+.as .get.blue { background: #007aff; color: #fff; }
+.as .pring { margin-left: auto; width: 30px; height: 30px; flex: none; margin-right: 22px; }
+.as .shots { display: flex; gap: 8px; margin-top: 18px; }
+.as .shot { flex: 1; height: 216px; border-radius: 14px; background: linear-gradient(180deg, #f2f2f7, #e9e9ee); position: relative; overflow: hidden; }
+.as .shot::before { content: ""; position: absolute; left: 12px; right: 12px; top: 30px; height: 9px; border-radius: 5px; background: #dcdce1; box-shadow: 0 20px 0 #e2e2e7, 0 40px 0 #e2e2e7, 0 60px 0 #e2e2e7; }
+.as .line { height: 11px; border-radius: 6px; background: #f0f0f3; margin-top: 14px; }
+
+/* ---- splash ---- */
+.splash { background: #0d0d0e; display: grid; place-items: center; }
+.splash img { width: 104px; }
+
+/* ---- Authenticator light onboarding ---- */
+.al { background: #f7f7fb; color: #1b1b1f; font-family: var(--android-font); text-align: center; }
+.al .sbbg { position: absolute; left: 0; right: 0; top: 0; height: 40px; background: #2f54d3; }
+.al .art { position: absolute; top: 120px; left: 50%; transform: translateX(-50%); }
+.al h3 { position: absolute; top: 330px; left: 32px; right: 32px; font-size: 18px; font-weight: 500; line-height: 1.35; }
+.al p { position: absolute; left: 32px; right: 32px; font-size: 14px; line-height: 1.45; color: #46464f; }
+.al .pri { position: absolute; left: 28px; right: 28px; height: 44px; border-radius: 6px; background: #2f54d3; color: #fff; font-size: 15px; font-weight: 500; display: grid; place-items: center; }
+.al .ol { position: absolute; left: 28px; right: 28px; height: 44px; border-radius: 6px; border: 1px solid #8c8c96; background: #fff; color: #1b1b1f; font-size: 14px; display: flex; align-items: center; gap: 14px; padding: 0 16px; }
+.al .ol .lab { flex: 1; text-align: center; margin-right: 22px; }
+.al .lnk { position: absolute; left: 0; right: 0; color: #2f54d3; font-size: 14px; }
+.al .skip { position: absolute; top: 58px; right: 22px; border: 1px solid #b6b6c0; border-radius: 4px; padding: 6px 10px; font-size: 13px; }
+.al .chk { position: absolute; left: 34px; right: 34px; display: flex; gap: 12px; text-align: left; font-size: 14px; color: #46464f; }
+.al .chk i { width: 18px; height: 18px; border: 2px solid #46464f; border-radius: 3px; flex: none; margin-top: 2px; }
+
+/* system dialogs (Android) */
+.dlg { position: absolute; left: 14px; right: 14px; bottom: 60px; border-radius: 26px; background: #2b2b30; color: #e8e8ee; padding: 26px 22px 18px; text-align: center; font-family: var(--android-font); }
+.dlg .q { font-size: 15px; line-height: 1.4; margin-top: 12px; }
+.dlg .q b { font-weight: 700; }
+.dlg .opt { font-size: 16px; font-weight: 500; margin-top: 18px; padding: 6px 0; border-radius: 18px; }
+
+/* bottom sheet (Authenticator add account) */
+.sheet { position: absolute; left: 0; right: 0; bottom: 0; border-radius: 22px 22px 0 0; background: #fff; color: #1b1b1f; font-family: var(--android-font); padding: 26px 26px 76px; }
+.sheet h4 { font-size: 18px; font-weight: 500; }
+.sheet .it { display: flex; align-items: center; gap: 16px; height: 54px; margin-top: 12px; padding: 0 8px; font-size: 16px; border-radius: 10px; }
+
+/* ---- Microsoft sign-in pages ---- */
+.ms { background: #fff; color: #1b1b1b; font-family: "Segoe UI", sans-serif; }
+.ms .pg { position: absolute; top: 64px; left: 28px; right: 28px; }
+.ms .logo { height: 24px; }
+.ms .who { font-size: 15px; margin-top: 18px; color: #1b1b1b; display: flex; align-items: center; gap: 6px; }
+.ms h1 { font-size: 24px; font-weight: 600; margin-top: 8px; }
+.ms h1.first { margin-top: 18px; }
+.ms .opt { display: flex; align-items: center; gap: 14px; height: 58px; padding: 0 10px; margin-top: 8px; font-size: 15px; border-radius: 4px; }
+.ms .opt.first { margin-top: 18px; }
+.ms .lnk { color: #0067b8; font-size: 13px; margin-top: 18px; }
+.ms .note { font-size: 13px; color: #1b1b1b; margin-top: 16px; line-height: 1.4; }
+.ms .btns { display: flex; justify-content: flex-end; gap: 8px; margin-top: 26px; }
+.ms .b { min-width: 108px; height: 34px; display: grid; place-items: center; font-size: 15px; background: #ccc; }
+.ms .b.pri { background: #0067b8; color: #fff; }
+.ms .field { border-bottom: 1px solid #666; height: 36px; margin-top: 22px; font-size: 16px; display: flex; align-items: center; }
+.ms .field .ph { color: #666; }
+.ms .field .cur { display: inline-block; width: 1.5px; height: 20px; background: #1b1b1b; margin-left: 1px; }
+.ms .foot { position: absolute; bottom: 58px; left: 28px; font-size: 12px; color: #616161; display: flex; gap: 16px; }
+.ms .bar { position: absolute; left: 0; right: 0; top: 40px; height: 6px; overflow: hidden; }
+.ms .bar i { position: absolute; top: 2px; width: 60px; height: 3px; background: #0067b8; border-radius: 2px; }
+
+/* ---- Authenticator dark ---- */
+.au { background: #0f0f10; color: #e6e6e6; font-family: var(--android-font); }
+.au .app { position: absolute; top: 48px; left: 24px; right: 24px; font-size: 19px; font-weight: 500; display: flex; align-items: center; gap: 18px; }
+.au .app .sp { flex: 1; }
+.au .center { position: absolute; top: 74px; left: 26px; right: 26px; text-align: center; }
+.au .stepn { font-size: 13px; color: #b5b5bb; }
+.au h2 { font-size: 21px; font-weight: 500; color: #fff; margin-top: 10px; line-height: 1.3; }
+.au .ill { margin: 22px auto 0; width: 128px; height: 108px; border-radius: 14px; background: #2a2b33; position: relative; }
+.au .ill::before { content: ""; position: absolute; left: 18px; right: 18px; top: 22px; height: 6px; border-radius: 3px; background: #6f7080; box-shadow: 0 22px 0 #4a4b57, 0 44px 0 #4a4b57; }
+.au .ill::after { content: ""; position: absolute; right: 18px; top: 40px; width: 22px; height: 12px; border-radius: 6px; background: #5a8cff; }
+.au .steps { text-align: left; margin-top: 30px; display: flex; flex-direction: column; gap: 18px; }
+.au .st { display: flex; gap: 14px; align-items: center; text-align: left; font-size: 14px; color: #dcdce2; line-height: 1.35; }
+.au .st b { color: #fff; }
+.au .st i { width: 30px; height: 30px; border-radius: 50%; border: 2px solid #5a7cff; flex: none; display: grid; place-items: center; font: normal 500 13px var(--android-font); color: #cfd7ff; }
+.au .ok { display: flex; gap: 12px; align-items: center; justify-content: center; font-size: 14px; color: #dcdce2; margin-top: 24px; }
+.au .bdy { font-size: 14px; line-height: 1.45; color: #d6d6d6; margin-top: 22px; }
+.au .bbar { position: absolute; left: 22px; right: 22px; bottom: 70px; display: flex; gap: 12px; }
+.au .bb { flex: 1; height: 44px; border-radius: 8px; display: grid; place-items: center; font-size: 15px; font-weight: 500; }
+.au .bb.pri { background: #3a4fd8; color: #fff; }
+.au .bb.sec { border: 1px solid #8a8a96; color: #fff; }
+.au .spin { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); text-align: center; color: #d6d6d6; font-size: 15px; white-space: nowrap; }
+.au .spin .rg { width: 34px; height: 34px; border-radius: 50%; border: 3px solid rgba(90,140,255,.25); border-top-color: #5a8cff; margin: 0 auto 12px; }
+.au .acct { position: absolute; top: 96px; left: 0; right: 0; height: 64px; background: #1d1e22; border-left: 4px solid #5a7cff; display: flex; align-items: center; gap: 16px; padding: 0 20px; }
+.au .acct .nm { font-size: 15px; color: #fff; }
+.au .acct .em { font-size: 13px; color: #b5b5bb; margin-top: 2px; }
+.au .tabs { position: absolute; left: 0; right: 0; bottom: 44px; height: 64px; display: flex; justify-content: space-around; align-items: center; font-size: 11px; color: #b5b5bb; text-align: center; }
+.au .tabs .on { color: #8ab4ff; }
+.au .lst { position: absolute; top: 96px; left: 24px; right: 24px; }
+.au .lst .hd { font-size: 12.5px; color: #8ab4ff; margin-top: 22px; }
+.au .lst .rw { display: flex; align-items: center; gap: 14px; height: 46px; font-size: 15px; color: #f0f0f4; border-radius: 8px; }
+.au .lst .rw .chev { margin-left: auto; color: #8a8a96; }
+
+/* pattern lock */
+.lock { background: #101012; color: #e6e6e6; font-family: var(--android-font); text-align: center; }
+.lock .tt { position: absolute; top: 96px; left: 30px; right: 30px; font-size: 18px; line-height: 1.35; }
+.lock .hint { position: absolute; top: 320px; left: 0; right: 0; font-size: 14px; color: #b5b5bb; }
+.lock svg { position: absolute; left: 55px; top: 380px; }
+
+/* ---- Samsung settings (dark) ---- */
+.ss { background: #050505; color: #f2f2f2; font-family: var(--android-font); }
+.ss .hdr { position: absolute; top: 56px; left: 18px; right: 18px; display: flex; align-items: center; gap: 14px; font-size: 20px; font-weight: 500; white-space: nowrap; overflow: hidden; }
+.ss .desc { position: absolute; top: 116px; left: 26px; right: 26px; font-size: 14px; line-height: 1.5; color: #cfcfd4; }
+.ss .card { position: absolute; left: 14px; right: 14px; border-radius: 22px; background: #17171a; padding: 14px 18px; }
+.ss .lbl { font-size: 13px; color: #8fa6d8; }
+.ss .val { font-size: 17px; margin-top: 4px; display: flex; align-items: center; }
+.ss .val .g { margin-left: auto; }
+.ss .rd { display: flex; align-items: center; gap: 18px; height: 50px; font-size: 16px; border-radius: 12px; }
+.ss .rd i { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #8a8a90; flex: none; position: relative; }
+.ss .rd i.on { border-color: #4f84ff; }
+.ss .rd i.on::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: #4f84ff; }
+
+/* ---- iOS Settings (light) ---- */
+.is { background: #f2f2f7; color: #000; font-family: var(--ios-font); }
+.is .nav { position: absolute; top: 56px; left: 12px; right: 12px; height: 40px; display: flex; align-items: center; font-size: 17px; }
+.is .nav .bk { color: #007aff; display: flex; align-items: center; gap: 4px; }
+.is .nav .ttl { position: absolute; left: 0; right: 0; text-align: center; font-weight: 600; pointer-events: none; }
+.is .big { position: absolute; top: 96px; left: 18px; font-size: 32px; font-weight: 700; }
+.is .grp { position: absolute; left: 16px; right: 16px; background: #fff; border-radius: 12px; overflow: hidden; }
+.is .cell { display: flex; align-items: center; gap: 12px; height: 46px; padding: 0 14px; font-size: 16px; border-bottom: .5px solid #d8d8dc; position: relative; }
+.is .cell:last-child { border-bottom: 0; }
+.is .cell .sq { width: 29px; height: 29px; border-radius: 7px; flex: none; display: grid; place-items: center; }
+.is .cell .chev { margin-left: auto; color: #c4c4c7; font-size: 18px; }
+.is .cell .ck { margin-left: auto; color: #007aff; font-weight: 700; font-size: 17px; }
+.is .tg { margin-left: auto; width: 51px; height: 31px; border-radius: 16px; background: #34c759; position: relative; flex: none; }
+.is .tg::after { content: ""; position: absolute; right: 2px; top: 2px; width: 27px; height: 27px; border-radius: 50%; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,.2); }
+.is .gh { position: absolute; left: 32px; font-size: 13px; color: #6d6d72; text-transform: uppercase; letter-spacing: .2px; }
+.is .srch { position: absolute; top: 148px; left: 16px; right: 16px; height: 36px; border-radius: 10px; background: #e3e3e8; color: #8a8a8e; font-size: 16px; display: flex; align-items: center; padding: 0 10px; gap: 6px; }
+
+/* ---- iOS Authenticator (light, blue title bar) — from I1 ---- */
+.ia { background: #f2f2f7; color: #111; font-family: var(--ios-font); }
+.ia .tb { position: absolute; left: 0; right: 0; top: 0; height: 104px; background: #0f6cbd; color: #fff; }
+.ia .tb .row { position: absolute; left: 16px; right: 16px; bottom: 12px; display: flex; align-items: center; gap: 14px; font-size: 22px; font-weight: 700; }
+.ia .tb .sp { flex: 1; }
+.ia .ban { position: absolute; top: 104px; left: 0; right: 0; height: 58px; background: #fdf1ea; display: flex; align-items: center; gap: 12px; padding: 0 14px; }
+.ia .ban .tx { flex: 1; font-size: 13px; color: #a4262c; font-weight: 600; }
+.ia .ban .tx span { display: block; font-weight: 400; color: #555; font-size: 11.5px; margin-top: 2px; }
+.ia .ban .on { border: 1px solid #c8a596; border-radius: 8px; padding: 6px 10px; font-size: 12.5px; color: #8a3a1c; background: #fff; }
+.ia .acc { position: absolute; left: 0; right: 0; height: 68px; background: #fff; display: flex; align-items: center; gap: 14px; padding: 0 16px; border-bottom: .5px solid #e2e2e6; }
+.ia .acc .badge-i { width: 38px; height: 38px; border-radius: 50%; background: #eef0f4; display: grid; place-items: center; flex: none; }
+.ia .acc .nm { font-size: 15px; }
+.ia .acc .em { font-size: 12px; color: #666; margin-top: 2px; }
+.ia .acc .chev { margin-left: auto; color: #b5b5ba; }
+.ia .hdr { position: absolute; top: 0; left: 0; right: 0; height: 210px; background: #0f6cbd; color: #fff; }
+.ia .hdr .av { position: absolute; left: 18px; top: 112px; width: 66px; height: 66px; border-radius: 50%; background: #fff; display: grid; place-items: center; }
+.ia .hdr .nm { position: absolute; left: 100px; top: 122px; font-size: 18px; font-weight: 600; }
+.ia .hdr .em { position: absolute; left: 100px; top: 150px; font-size: 13px; opacity: .9; }
+.ia .sh { position: absolute; left: 16px; font-size: 11px; color: #6d6d72; letter-spacing: .3px; text-transform: uppercase; }
+.ia .grp { position: absolute; left: 0; right: 0; background: #fff; }
+.ia .grp .r { height: 44px; display: flex; align-items: center; padding: 0 16px; font-size: 14.5px; border-bottom: .5px solid #e5e5ea; }
+.ia .grp .r .chev { margin-left: auto; color: #b5b5ba; }
+.ia .grp .r small { display: block; font-size: 11px; color: #777; }
+.ia .ctr { position: absolute; top: 150px; left: 24px; right: 24px; text-align: center; }
+.ia h2 { font-size: 22px; font-weight: 700; line-height: 1.25; margin-top: 22px; }
+.ia .p { font-size: 13px; line-height: 1.45; color: #555; margin-top: 12px; text-align: left; }
+.ia .p b { color: #222; }
+.ia .cta { position: absolute; left: 18px; right: 18px; bottom: 90px; height: 46px; border-radius: 8px; background: #0f6cbd; color: #fff; display: grid; place-items: center; font-size: 15px; font-weight: 600; }
+.ia .spin { position: absolute; left: 0; right: 0; top: 46%; text-align: center; color: #444; font-size: 15px; }
+.ia .spin .rg { width: 32px; height: 32px; border-radius: 50%; border: 3px solid rgba(15,108,189,.2); border-top-color: #0f6cbd; margin: 0 auto 12px; }
+.ia .fab { position: absolute; right: 18px; bottom: 112px; width: 56px; height: 56px; border-radius: 50%; background: #0f6cbd; display: grid; place-items: center; box-shadow: 0 6px 14px rgba(0,0,0,.25); }
+.ia .tabs { position: absolute; left: 0; right: 0; bottom: 0; height: 84px; background: #fff; border-top: .5px solid #ddd; display: flex; justify-content: space-around; padding-top: 10px; font-size: 10.5px; color: #888; text-align: center; }
+.ia .tabs .on { color: #0f6cbd; }
+/* iOS system alert (Liquid Glass style) */
+.ialert { position: absolute; left: 30px; right: 30px; top: 250px; border-radius: 30px; background: rgba(48,48,52,.94); color: #fff; padding: 22px 20px 16px; font-family: var(--ios-font); box-shadow: 0 20px 50px rgba(0,0,0,.4); }
+.ialert .ttl { font-size: 15px; font-weight: 600; line-height: 1.3; }
+.ialert .msg { font-size: 12.5px; line-height: 1.4; color: rgba(255,255,255,.62); margin-top: 8px; }
+.ialert .bts { display: flex; gap: 10px; margin-top: 16px; }
+.ialert .bt { flex: 1; height: 40px; border-radius: 20px; background: rgba(255,255,255,.14); display: grid; place-items: center; font-size: 15px; font-weight: 500; }
+.ialert .bt.pri { background: #2aa8f2; }
+/* Android Authenticator "Let's create your passkey" (dark, C1 0:04) */
+.au .lcp { position: absolute; top: 96px; left: 26px; right: 26px; text-align: center; }
+.au .lcp .p { font-size: 14px; line-height: 1.5; color: #d6d6d6; margin-top: 26px; text-align: left; }
+.tip-card { position: absolute; padding: 22px 26px 24px 40px; border-radius: 14px; background: rgba(12,18,52,.8); border: 1px solid rgba(255,255,255,.16); overflow: hidden; }
+.tip-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 18px; background: var(--orange); clip-path: polygon(0 0, 100% 0, 40% 100%, 0 100%); }
+.tip-card .k { font: 600 14px var(--brand-font); letter-spacing: 2.2px; text-transform: uppercase; color: var(--orange); }
+.tip-card .h { font: 600 26px/1.25 var(--brand-font); margin-top: 6px; color: #fff; }
+.tip-card .b { font: 400 21px/1.4 var(--brand-font); color: var(--ink2); margin-top: 8px; }
+.tip-card .b b { color: #fff; font-weight: 600; }
+
+/* iOS Authenticator (dark) mirrors Android — shares .au */
+.faceid { position: absolute; left: 50%; top: 42%; width: 150px; height: 150px; margin: -75px 0 0 -75px; border-radius: 34px; background: rgba(40,40,44,.92);
+  display: grid; place-items: center; font: 500 14px var(--ios-font); color: #fff; }
+.faceid .lb { position: absolute; bottom: 14px; left: 0; right: 0; text-align: center; }

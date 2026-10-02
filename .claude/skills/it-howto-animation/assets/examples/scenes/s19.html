@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../shared/lib.css">
+<style>
+  .panel { position: absolute; top: 0; bottom: 0; left: -120px; width: 900px; background: #fff;
+    clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%); box-shadow: 0 0 80px rgba(0,0,0,.4); }
+  .panel img { position: absolute; left: 230px; top: 50%; width: 500px; transform: translateY(-50%); }
+  .stripe { position: absolute; top: 0; bottom: 0; left: 700px; width: 80px; background: var(--orange);
+    clip-path: polygon(70% 0, 100% 0, 30% 100%, 0 100%); }
+  .copy { position: absolute; left: 930px; top: 50%; transform: translateY(-50%); width: 900px; }
+  .h { font: 600 80px var(--brand-font); color: #fff; }
+  .s { font: 400 34px var(--brand-font); color: var(--ink2); margin-top: 10px; }
+  .rows { margin-top: 48px; display: flex; flex-direction: column; gap: 22px; }
+  .row { display: flex; align-items: center; gap: 22px; font: 600 40px var(--brand-font); color: #fff; }
+  .ic { width: 64px; height: 64px; border-radius: 16px; background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.18); display: grid; place-items: center; }
+</style></head><body><div id="stage"></div>
+<script src="../../shared/lib.js"></script>
+<script>
+const stage = document.getElementById('stage');
+const bd = Backdrop(stage);
+stage.appendChild(el(`<div class="stripe"></div>`));
+stage.appendChild(el(`<div class="panel"><img src="../../shared/brand/logo.png"></div>`));
+const phoneIc = `<svg width="30" height="30" viewBox="0 0 24 24"><path fill="#F7931E" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>`;
+const mailIc = `<svg width="30" height="30" viewBox="0 0 24 24"><path fill="#F7931E" d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.2L4.2 7v10h15.6V7z"/><path fill="#F7931E" d="m4 6 8 5.4L20 6z"/></svg>`;
+stage.appendChild(el(`<div class="copy"><div class="h">Need help?</div><div class="s">Contact Landis support</div>
+  <div class="rows"><div class="row"><div class="ic">${phoneIc}</div>717-733-0793</div>
+  <div class="row"><div class="ic">${mailIc}</div>support@landisit.com</div></div></div>`));
+Grain(stage);
+const panel = $('.panel'), stripe = $('.stripe'), copy = $('.copy');
+window.__ready = readyAll();
+window.__seek = t => {
+  bd.drift(t);
+  panel.style.transform = `translateX(${(1 - segIn(t, 0, 1.1)) * -980}px)`;
+  stripe.style.transform = `translateX(${(1 - segIn(t, .15, 1.3)) * -1040}px)`;
+  const items = [copy.querySelector('.h'), copy.querySelector('.s'), ...copy.querySelectorAll('.row')];
+  items.forEach((k, i) => rise(k, segIn(t, .7 + i * .16, 1.3 + i * .16), 16));
+};
+window.__seek(0);
+</script></body></html>

@@ -1,9 +1,9 @@
 # Landis IT video studio
 
-This repo produces animated, customer-facing how-to videos. For any video
-work (new footage, storyboards, renders, scripts, voiceover), follow the
-`landis-video-animation` skill in `.claude/skills/landis-video-animation/SKILL.md`.
+This repo produces animated, customer-facing how-to videos. For any video work (new footage,
+storyboards, renders, scripts, voiceover), follow the `it-howto-animation` skill in
+`.claude/skills/it-howto-animation/SKILL.md`. It is an HTML + Playwright + ffmpeg pipeline
+(see its README for the project layout and setup).
 
-- Remotion project: `studio/` (`npm install` once; `npx tsc --noEmit` to typecheck)
-- Per-video inputs/outputs: `projects/<slug>/` (footage and renders are git-ignored)
-- Brand values live only in `studio/src/brand/tokens.ts`
+- `studio/` is the earlier, experimental Remotion pipeline. The skill does not use it. See `studio/README.md`.
+- `projects/<slug>/` holds briefs from the Remotion pipeline; new-pipeline projects live in their own folder (see the skill).

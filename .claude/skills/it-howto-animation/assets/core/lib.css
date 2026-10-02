@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Inter:wght@400;500;600;700&display=block');
+
+:root {
+  --landis: #273786; --landis-deep: #141c47; --landis-mid: #2f4296;
+  --orange: #F7931E; --blue2: #3366FF;
+  --ink: #ffffff; --ink2: #b9c2e4;
+  --brand-font: "Segoe UI", "Segoe UI Variable", sans-serif;
+  --android-font: Roboto, "Segoe UI", sans-serif;
+  --ios-font: Inter, -apple-system, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--landis-deep); }
+#stage { position: absolute; inset: 0; overflow: hidden; font-family: var(--brand-font); color: var(--ink); }
+.abs { position: absolute; }
+
+/* ---------- backdrop ---------- */
+.bg { position: absolute; inset: -40px; background:
+  radial-gradient(1200px 800px at 50% 42%, #3a4fa8 0%, #2a3b8c 38%, #1b2766 70%, #121a45 100%); }
+.bg .slant { position: absolute; top: -10%; height: 120%; clip-path: polygon(38% 0, 100% 0, 62% 100%, 0 100%); }
+.bg .s1 { left: 72%; width: 420px; background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)); }
+.bg .s2 { left: 81%; width: 180px; background: linear-gradient(180deg, rgba(247,147,30,.10), rgba(247,147,30,.02)); }
+.bg .s3 { left: -6%; width: 300px; background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0)); }
+.bg .floor { position: absolute; left: 0; right: 0; bottom: 0; height: 32%;
+  background: linear-gradient(180deg, rgba(10,14,40,0) 0%, rgba(10,14,40,.35) 100%); }
+.grain { position: absolute; inset: 0; opacity: .045; mix-blend-mode: overlay; pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+.vignette { position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(1400px 900px at 50% 45%, rgba(0,0,0,0) 55%, rgba(5,8,25,.45) 100%); }
+
+/* ---------- devices ---------- */
+.dev { position: absolute; width: 400px; height: 840px; transform-origin: 50% 50%; }
+.dev .shadow { position: absolute; left: 30px; right: 30px; bottom: -34px; height: 60px; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(3,6,22,.55), rgba(3,6,22,0)); filter: blur(6px); }
+.dev .body { position: absolute; inset: 0; border-radius: 56px; padding: 6px;
+  box-shadow: 0 40px 80px rgba(4,8,30,.45), 0 12px 24px rgba(4,8,30,.35), inset 0 0 0 1px rgba(255,255,255,.25); }
+.dev.android .body { background: linear-gradient(140deg, #e9ebef 0%, #9aa0aa 22%, #dfe2e7 48%, #858b96 74%, #d5d8de 100%); }
+.dev.ios .body { border-radius: 64px; background: linear-gradient(140deg, #6d6a66 0%, #a9a49d 20%, #57544f 50%, #9b968f 78%, #66625d 100%); }
+.dev .bezel { position: absolute; inset: 6px; border-radius: 50px; background: #050505; padding: 9px; }
+.dev.ios .bezel { border-radius: 58px; padding: 11px; }
+.dev .screen { position: absolute; inset: 9px; border-radius: 42px; overflow: hidden; background: #000; isolation: isolate; }
+.dev.ios .screen { inset: 11px; border-radius: 48px; }
+.dev .cam { position: absolute; top: 24px; left: 50%; width: 18px; height: 18px; margin-left: -9px; border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #2a3550 0, #0b0d14 55%, #000 100%); z-index: 50; }
+.dev.ios .cam { top: 22px; width: 118px; height: 34px; margin-left: -59px; border-radius: 20px; background: #000; }
+.dev .btn { position: absolute; width: 5px; border-radius: 3px; background: linear-gradient(90deg, #7e848e, #c9cdd4); }
+.dev.ios .btn { background: linear-gradient(90deg, #4d4a46, #8e8981); }
+.dev .glare { position: absolute; inset: 6px; border-radius: 50px; pointer-events: none; z-index: 60;
+  background: linear-gradient(118deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.03) 28%, rgba(255,255,255,0) 42%); }
+.dev .label { position: absolute; left: 50%; bottom: -78px; transform: translateX(-50%); padding: 8px 22px; border-radius: 22px;
+  font: 600 22px var(--brand-font); letter-spacing: .3px; color: #fff; background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.18); white-space: nowrap; }
+
+/* screen layers */
+.scr { position: absolute; inset: 0; overflow: hidden; }
+.sb { position: absolute; left: 0; right: 0; top: 0; height: 40px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 30px 0 34px; font: 500 15px var(--android-font); z-index: 20; }
+.ios .sb { height: 54px; padding: 6px 36px 0 44px; font: 600 16px var(--ios-font); }
+.sb .icons { display: flex; gap: 6px; align-items: center; }
+.navbar { position: absolute; left: 0; right: 0; bottom: 0; height: 44px; display: flex; justify-content: center; align-items: center; gap: 92px; }
+.homeind { position: absolute; left: 50%; bottom: 9px; width: 134px; height: 5px; margin-left: -67px; border-radius: 3px; }
+
+/* ---------- overlays ---------- */
+.badge { position: absolute; left: 96px; bottom: 150px; display: flex; align-items: stretch; height: 74px; }
+.badge .tab { width: 38px; background: var(--orange); clip-path: polygon(45% 0, 100% 0, 55% 100%, 0 100%); margin-right: -10px; }
+.badge .card { padding: 10px 28px 10px 22px; background: rgba(12,18,52,.72); border: 1px solid rgba(255,255,255,.14);
+  border-radius: 6px 12px 12px 6px; display: flex; flex-direction: column; justify-content: center; backdrop-filter: blur(6px); }
+.badge .n { font: 600 15px var(--brand-font); letter-spacing: 2.4px; color: var(--orange); text-transform: uppercase; }
+.badge .t { font: 600 28px var(--brand-font); color: #fff; margin-top: 1px; }
+.caption { position: absolute; left: 50%; bottom: 46px; transform: translateX(-50%); padding: 12px 30px; border-radius: 12px;
+  background: rgba(10,15,45,.70); font: 400 32px var(--brand-font); color: #fff; white-space: nowrap; }
+.caption b { font-weight: 600; color: #ffc27a; }
+.ripple { position: absolute; width: 80px; height: 80px; margin: -40px 0 0 -40px; border-radius: 50%;
+  border: 3px solid rgba(255,255,255,.95); box-shadow: 0 0 0 2.5px rgba(51,102,255,.95), inset 0 0 0 2px rgba(51,102,255,.6); pointer-events: none; z-index: 40; opacity: 0; }
+.hl { position: absolute; border-radius: 14px; border: 3px solid var(--orange); box-shadow: 0 0 0 6px rgba(247,147,30,.18); z-index: 39; pointer-events: none; }
